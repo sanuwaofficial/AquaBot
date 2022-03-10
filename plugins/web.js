@@ -51,7 +51,7 @@ Aqua.addCommand({pattern: 'ping$', fromMe: true, deleteCommand: false, desc: Lan
 
 if (Config.WORKTYPE == 'private') {
 
-    Mizuki.addCommand({pattern: 'short ?(.*)', fromMe: true, desc: Lang.URL}, (async (message, match) => {
+    Aqua.addCommand({pattern: 'short ?(.*)', fromMe: true, desc: Lang.URL}, (async (message, match) => {
 
         if (match[1] === '') return await message.client.sendMessage(message.jid, SLang.LİNK, MessageType.text);
 

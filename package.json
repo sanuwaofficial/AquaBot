@@ -1,0 +1,44 @@
+{
+  "name": "aquabot",
+  "version": "1.0.1",
+  "description": "aquabot happy for whatsapp.",
+  "main": "/aquabot/bot.js",
+  "scripts": {
+    "start": "supervisor -s bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanuwaofficial/AquaBot.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "ai",
+    "api",
+    "unlimited",
+    "asenadev",
+    "machine learning",
+    "automatic",
+    "whatsapp web",
+    "whatsapp api"
+  ],
+  "author": "sanuwa",
+  "developer": "sanuwa",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/sanuwaofficial/AquaBot/issues"
+  },
+  "homepage": "https://github.com/sanuwaofficial/AquaBot",
+  "dependencies": {
+   
+    "aquabot": "^1.0.0",
+    "hxz-api": "^1.0.1",
+    "emoji-api": "^2.0.1",  
+    "cobra_dl": "^1.0.11",
+    "audd.io": "^3.0.2" ,
+    "@lh2020/speedtest-net":"^2.1.1"
+   
+		
+
+  }
+}

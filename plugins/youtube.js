@@ -16,7 +16,7 @@ const https = require('https');
 const ytmp3 = require('../lib/ytmp3');
 let wk = config.WORKTYPE == 'public' ? false : true
 
- Aqua.addCommand({pattern: 'song ?(.*)', fromMe: wk, desc: Lang.SONG_DESC, deleteCommand: false}, (async (message, match) => {
+ Aqua.addCommand({pattern: 'song ?(.*)', fromMe: wk, desc: Lang.SONG_DESC, deleteCommand: false}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_TEXT_SONG,MessageType.text, {quoted: message.data});
   

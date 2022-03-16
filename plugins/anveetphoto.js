@@ -49,9 +49,8 @@ r_text[36] = "https://telegra.ph/file/4909f5d5d6438623b2895.jpg";
 r_text[37] = "https://telegra.ph/file/f111368935eeb9172cee0.jpg";
 r_text[38] = "https://telegra.ph/file/56070980ca84439983a5f.jpg";
 r_text[39] = "https://telegra.ph/file/200e5f1dc8f5db1852a38.jpg";
-r_text[40] = "https://telegra.ph/file/c89129fc9c3c0166641cb.jpg";
 
-var i = Math.floor(41*Math.random())
+var i = Math.floor(40*Math.random())
 
     var respoimage = await axios.get(`${r_text[i]}`, { responseType: 'arraybuffer' })
 

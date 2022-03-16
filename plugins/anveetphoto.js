@@ -54,7 +54,7 @@ var i = Math.floor(40*Math.random())
 
     var respoimage = await axios.get(`${r_text[i]}`, { responseType: 'arraybuffer' })
 
-    await message.sendMessage(Buffer(respoimage.data), MessageType.image, {mimetype: Mimetype.png, caption:' *© DOWNLOAD BY MR NIMA  🐼* '})
+    await message.sendMessage(Buffer(respoimage.data), MessageType.image, {mimetype: Mimetype.png, caption:' *© DOWNLOAD BY MR NIMA  🐼🎭* '})
 
     }));
 }

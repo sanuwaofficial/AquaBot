@@ -5,7 +5,7 @@ const Config = require('../config');
 
 if (Config.WORKTYPE == 'public') {
 
-    Aqua.addCommand({pattern: 'anveet',fromMe: false, desc: 'random rashmika images'}, (async (message, match) => {
+    Aqua.addCommand({pattern: 'anveet',fromMe: false,dontAddCommandList: false, desc: 'random rashmika images'}, (async (message, match) => {
 
     var r_text = new Array ();
 

@@ -58,7 +58,7 @@ Aqua.addCommand({ pattern: 'spotify ?(.*)', fromMe: wk, desc:DESC, deleteCommand
   
   var load = await message.client.sendMessage(message.jid,Config.SONG_DOWN, MessageType.text, { quoted: message.data });
   const spo = await axios.get(`https://megayaa.herokuapp.com/api/spotifydl?url=${match[1]}`)
-  
+  if(Config.DETAILS == 'true'){
   if (!spo.data.status){
     
     const spo2 = await axios.get(`https://megayaa.herokuapp.com/api/spotifydl?url=${match[1]}`)
@@ -88,6 +88,34 @@ return await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid
        await message.sendMessage(Buffer.from(song.data), MessageType.document,  {filename: spo.data.data.title + '.mp3', mimetype: 'audio/mpeg', quoted: message.data});
 return await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true})
   }
+  }else
+     if(Config.DETAILS == 'false'){
+     if (!spo.data.status){
+    
+    const spo2 = await axios.get(`https://megayaa.herokuapp.com/api/spotifydl?url=${match[1]}`)
+  if (!spo2.data.status){
+    return await message.client.sendMessage(message.jid,Lang.E_FB, MessageType.text, { quoted: message.data });
+  }else {
+  var up = await message.client.sendMessage(message.jid,Config.SONG_UP, MessageType.text, { quoted: message.data });
+  await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
+    
+    const song = await axios.get(spo2.data.data.result, { responseType: 'arraybuffer'}); 
+    
+   
+       await message.sendMessage(Buffer.from(song.data), MessageType.document,  {filename: spo2.data.data.title + '.mp3', mimetype: 'audio/mpeg', quoted: message.data});
+return await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true})
+  }} else {
+    
+  var up = await message.client.sendMessage(message.jid,Config.SONG_UP, MessageType.text, { quoted: message.data });
+  await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
+    
   
-})
+    const song = await axios.get(spo.data.data.result, { responseType: 'arraybuffer'}); 
+    
+ 
+       await message.sendMessage(Buffer.from(song.data), MessageType.document,  {filename: spo.data.data.title + '.mp3', mimetype: 'audio/mpeg', quoted: message.data});
+return await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true})
+     
+     }
+     }})
   

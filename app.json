@@ -1,11 +1,10 @@
-
 {
     "name": "Aquabot",
     "description": "AQUABOT  - Makes it easy and fun to use Whatsapp.",
-    "logo": "https://i.ibb.co/gVfYW1q/AQUA.jpg",
+    "logo": "https://i.ibb.co/LhyDWxR/aquabot.jpg",
     "keywords": ["whatsapp", "userbot", "aqua", "WhatsAsena", "bot", "api", "ai"],
-    "repository": "https://github.com/sanuwaofficial/AquaBot",
-    "website":   "https://sanuw-api.herokuapp.com/",
+    "repository": "https://github.com/iamMagma/ptsp",
+    "website":   "https://aquabot.ga/",
     "success_url": "https://sanuw-api.herokuapp.com/",
     "stack": "container",
     "env": {
@@ -52,6 +51,11 @@
 			"description": "එය ඔබගේ menu එකෙහි  විස්තරයට පෙර ඇති emoji  වෙනස් කරයි...ඔබ කැමති emoji යක් යොදන්න.",
 			"required": false,
 			"value": "🌀"	
+	},
+	"DETAILS": {
+			"description": "සිංදු ,වීඩියෝ ,පොටෝ එනකොට ඒවගෙ details එන්න ඕනෙ නම් true ලෙසද ඕනෙ නැත්තන් false ලෙසද තබන්න.",
+			"required": true,
+			"value": "true"	
 	},
 	"MUTE_MESSAGE": {
 			"description": "ගෲප් එකක් මියුට් කරද්දි එන්න ඕනෙ මැසේජ් එක.සකසා ඇති මැසේජ් එක දැමීමට අවශ්‍ය නම් default ලෙසම තබන්න ",
@@ -140,7 +144,7 @@
         "ALIVE_LOGO": {
             "description": "Alive message පින්තූරය වෙනස් කිරීම සඳහා ඔබගේ image link පහත සඳහන් කරන්න. (ඔබට අවශ්‍ය පින්තුරය https://imgbb.com වෙබ්සයිට් හි upload කර එම ලින්ක් මෙහි යොදන්න.)",
             "required": true,
-            "value": "https://i.ibb.co/gVfYW1q/AQUA.jpg"
+            "value": "https://i.ibb.co/LhyDWxR/aquabot.jpg"
         },
 	"BAN_MESSAGE": {
 			"description": "බොට් හරහා කාවහරි ගෲප් එකකින් රිමූ කරද්දි එන්න ඕනෙ මැසේජ් එක",

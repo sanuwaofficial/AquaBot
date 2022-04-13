@@ -12,7 +12,7 @@ const Lang = Language.getString('sticker');
 Aqua.addCommand({pattern: 'sticker$', fromMe: wk, desc: Lang.STICKER_DESC,  deleteCommand: false}, (async (message, match) => {    
 
         if (message.reply_message === false) return await message.client.sendMessage(message.jid,Lang.NEED_REPLY, MessageType.text);
-        var downloading = await message.client.sendMessage(message.jid,Lang.DOWNLOADING,MessageType.text);
+        var downloading = await message.client.sendMessage(message.jid,Lang.DOWNLOADING,MessageType.text, { quoted: message.data});
         var location = await message.client.downloadAndSaveMediaMessage({
             key: {
                 remoteJid: message.reply_message.jid,

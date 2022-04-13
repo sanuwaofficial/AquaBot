@@ -2,7 +2,7 @@ const Aqua = require('../events');
 const {MessageType,Mimetype} = require('@adiwajshing/baileys');
 const config = require('../config');
 const axios = require('axios');
-const { requestLyricsFor, requestAuthorFor, requestTitleFor, requestIconFor } = require("solenolyrics");
+
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 const ffmpeg = require('fluent-ffmpeg');
@@ -230,7 +230,7 @@ let wk = config.WORKTYPE == 'public' ? false : true
 Aqua.addCommand({pattern: 'yt ?(.*)', fromMe: wk, desc: Lang.YT_DESC, deleteCommand: false }, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);    
-        var reply = await message.client.sendMessage(message.jid,Lang.GETTING_VIDEOS,MessageType.text);
+        var reply = await message.client.sendMessage(message.jid,Lang.GETTING_VIDEOS,MessageType.text, {quoted: message.data});
 
         try {
             var arama = await yts(match[1]);

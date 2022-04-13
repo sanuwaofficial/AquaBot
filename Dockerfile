@@ -1,5 +1,5 @@
 
-FROM fusuf/whatsasena:latest
+FROM node:latest
 RUN git clone https://github.com/sanuwaofficial/AquaBot /root/aquabot
 WORKDIR /root/aquabot/
 ENV TZ=Europe/Istanbul

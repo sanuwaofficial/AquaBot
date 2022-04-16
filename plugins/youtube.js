@@ -231,8 +231,8 @@ Aqua.addCommand({pattern: 'yt ?(.*)', fromMe: wk, desc: Lang.YT_DESC, deleteComm
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text, {quoted: message.data}); 
 var vsn = ''
-if (Config.LANG == 'EN')  vsn = '*🧜‍♀️ Use  .video / .song commands to download videos or songs. 🧜‍♂️*'
-if (Config.LANG == 'SI')  vsn = '*🧜‍♀️ වීඩියෝ හෝ ගීත ලබා ගැනීම සදහා .video .song යන විධාන භාවිත කරන්න. 🧜‍♂️*'
+if (config.LANG == 'EN')  vsn = '*🧜‍♀️ Use  .video / .song commands to download videos or songs. 🧜‍♂️*'
+if (config.LANG == 'SI')  vsn = '*🧜‍♀️ වීඩියෝ හෝ ගීත ලබා ගැනීම සදහා .video .song යන විධාන භාවිත කරන්න. 🧜‍♂️*'
  
 if (match[1].includes('https://youtu')) return await message.client.sendMessage(message.jid,vsn,MessageType.text, {quoted: message.data}); 
         var reply = await message.client.sendMessage(message.jid,Lang.GETTING_VIDEOS,MessageType.text, {quoted: message.data});

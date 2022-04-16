@@ -249,4 +249,4 @@ if (match[1].includes('https://youtu')) return await message.client.sendMessage(
         });
         await message.client.sendMessage(message.jid,mesaj,MessageType.text, {quoted: message.data});
         await message.client.deleteMessage(message.jid, {id: reply.key.id, remoteJid: message.jid, fromMe: true}) ;  
-    }));
+    })); 

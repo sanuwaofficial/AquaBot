@@ -18,7 +18,7 @@ if (!iglink) return await message.client.sendMessage(message.jid,Lang.N_URL, Mes
 
 if (!match[1].includes('instagram.com')) return await message.client.sendMessage(message.jid,Lang.N_URL,MessageType.text, {quoted: message.data});
     var url =''
-  if iglink.includes('?igshid'){
+  if (iglink.includes('?igshid')) {
       var split = match[1].split('?igshid');
            url  = split[0]; } else {
            url = iglink ;

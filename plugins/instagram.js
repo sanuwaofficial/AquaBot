@@ -12,10 +12,20 @@ const ig = require('../lib/insta')
 Aqua.addCommand({ pattern: 'ig ?(.*)', fromMe: wk, desc:Lang.INSTA_DESC, deleteCommand: false }, async (message, match) => {
 
   const iglink = match[1]
+  
 
 if (!iglink) return await message.client.sendMessage(message.jid,Lang.N_URL, MessageType.text, { quoted: message.data });
+
 if (!match[1].includes('instagram.com')) return await message.client.sendMessage(message.jid,Lang.N_URL,MessageType.text, {quoted: message.data});
-await ig.insta(match[1]).then(async (response) => {
+    var url =''
+  if iglink.includes('?igshid'){
+      var split = match[1].split('?igshid');
+           url  = split[0]; } else {
+           url = iglink ;
+           }
+    
+ 
+await ig.insta(url).then(async (response) => {
     
 if (response.type == 'image') {	
 

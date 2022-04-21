@@ -59,6 +59,7 @@ return await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid
 Aqua.addCommand({ pattern: 'insta ?(.*)', fromMe: wk, desc:Lang.I_DESC, deleteCommand: false }, async (message, match) => {
   const iglink = match[1]
   if (!iglink) return await message.client.sendMessage(message.jid,Lang.N_USER, MessageType.text, { quoted: message.data });
+  if (iglink.includes('gist.github')) return await message.client.sendMessage(message.jid,Lang.N_USER, MessageType.text, { quoted: message.data });
   const user = iglink.replace("https://www.instagram.com/","")
   var load= await message.client.sendMessage(message.jid,Lang.D_USER, MessageType.text, { quoted: message.data });
   await ig.igstalk(user).then(async (response) => {

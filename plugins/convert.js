@@ -13,34 +13,31 @@ const { JSDOM } = require('jsdom')
 const fetch = require('node-fetch')
 const uploadFile = require('../lib/uploadfile')
 let { fromBuffer } = require('file-type')
-
+const axios = require('axios')
 const Language = require('../language');
 const Lang = Language.getString('conventer');
 
-async function webp2mp4(source) {
-  let form = new FormData
-  let isUrl = typeof source === 'string' && /https?:\/\//.test(source)
-  form.append('new-image-url', isUrl ? source : '')
-  form.append('new-image', isUrl ? '' : source, 'image.webp')
-  let res = await fetch('https://s6.ezgif.com/webp-to-mp4', {
-    method: 'POST',
-    body: form
-  })
-  let html = await res.text()
-  let { document } = new JSDOM(html).window
-  let form2 = new FormData
-  let obj = {}
-  for (let input of document.querySelectorAll('form input[name]')) {
-    obj[input.name] = input.value
-    form2.append(input.name, input.value)
-  }
-  let res2 = await fetch('https://ezgif.com/webp-to-mp4/' + obj.file, {
-    method: 'POST',
-    body: form2
-  })
-  let html2 = await res2.text()
-  let { document: document2 } = new JSDOM(html2).window
-  return new URL(document2.querySelector('div#output > p.outfile > video > source').src, res2.url).toString()
+async function webp2mp4(url) {
+  
+const res = await axios('https://ezgif.com/webp-to-mp4?url=' + url)
+const $ = cheerio.load(res.data)
+       
+        const file = $('input[name="file"]').attr('value')
+       
+   
+        const data = {
+          file: file,
+          convert: 'Convert WebP to MP4!',
+        }
+  const res2 = await axios({
+          method: 'post',
+          url: 'https://ezgif.com/webp-to-mp4/' + data.file,
+          data: new URLSearchParams(Object.entries(data)) 
+         
+         })  
+  const $2 = cheerio.load(res2.data)  
+  const link = $2('div#output > p.outfile > video > source').attr('src')
+  return link
 }
 
 if (Config.WORKTYPE == 'private') {
@@ -163,9 +160,10 @@ else if (Config.WORKTYPE == 'public') {
        await uploadFile(savedFilename).then( async (data) => { 
     const result = data.result.url
     
-    const res =   await Axios.get(`https://hadi-api.herokuapp.com/api/converter/ezgif-with-url/webp-to-mp4?url=` + result, { responseType: 'arraybuffer'})
+    const res =   await webp2mp4(result)
+    const res2 = await axios.get('https:' + res, { responseType: 'arraybuffer'})
   
-     await message.sendMessage(Buffer.from(res.data), MessageType.video , {  quoted: message.data, caption: Config.CAPTION})
+     await message.sendMessage(Buffer.from(res2.data), MessageType.video , {  quoted: message.data, caption: Config.CAPTION})
      await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
 
                                         })

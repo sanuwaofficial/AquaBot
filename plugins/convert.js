@@ -73,7 +73,7 @@ const $ = cheerio.load(res.data)
             },
             message: message.reply_message.data.quotedMessage
         });
-    await uploadFile(savedFilename).then( async (data) => { 
+    await uploadFile(location).then( async (data) => { 
     const result = data.result.url
     
     const res =   await webp2img(result)

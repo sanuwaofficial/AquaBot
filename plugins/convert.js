@@ -16,7 +16,8 @@ let { fromBuffer } = require('file-type')
 const axios = require('axios')
 const Language = require('../language');
 const Lang = Language.getString('conventer');
-
+const { webp2img } = require('../lib/ezgif');
+let wk = Config.WORKTYPE == 'public' ? false : true
 async function webp2mp4(url) {
   
 const res = await axios('https://ezgif.com/webp-to-mp4?url=' + url)
@@ -40,73 +41,8 @@ const $ = cheerio.load(res.data)
   return link
 }
 
-if (Config.WORKTYPE == 'private') {
 
-    Aqua.addCommand({pattern: 'mp4audio$', fromMe: true, desc: Lang.MP4TOAUDİO_DESC, deleteCommand: false}, (async (message, match) => {
-        const mid = message.jid
-        if (message.reply_message === false) return await message.client.sendMessage(mid, Lang.MP4TOAUDİO_NEEDREPLY, MessageType.text);
-        var downloading = await message.client.sendMessage(mid,Lang.MP4TOAUDİO,MessageType.text);
-        var location = await message.client.downloadAndSaveMediaMessage({
-            key: {
-                remoteJid: message.reply_message.jid,
-                id: message.reply_message.id
-            },
-            message: message.reply_message.data.quotedMessage
-        });
-
-        ffmpeg(location)
-            .save('output.mp3')
-            .on('end', async () => {
-                await message.client.sendMessage(mid, fs.readFileSync('output.mp3'), MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: false, quoted: message.data});
-            });
-        return await message.client.deleteMessage(mid, {id: downloading.key.id, remoteJid: message.jid, fromMe: true})
-    }));
-
-    Aqua.addCommand({pattern: 'imagesticker$', fromMe: true, desc: Lang.STİCKER_DESC, deleteCommand: false}, (async (message, match) => {
-        const mid = message.jid
-        if (message.reply_message === false) return await message.client.sendMessage(mid, Lang.STİCKER_NEEDREPLY, MessageType.text);
-        var downloading = await message.client.sendMessage(mid,Lang.STİCKER,MessageType.text);
-        var location = await message.client.downloadAndSaveMediaMessage({
-            key: {
-                remoteJid: message.reply_message.jid,
-                id: message.reply_message.id
-            },
-            message: message.reply_message.data.quotedMessage
-        });
-
-        ffmpeg(location)
-            .fromFormat('webp_pipe')
-            .save('output.jpg')
-            .on('end', async () => {
-                await message.client.sendMessage(mid, fs.readFileSync('output.jpg'), MessageType.image, {mimetype: Mimetype.jpg, quoted: message.data, caption: Config.CAPTION });
-            });
-        return await message.client.deleteMessage(mid, {id: downloading.key.id, remoteJid: message.jid, fromMe: true})
-    }));
-    Aqua.addCommand({pattern: 'vsticker$', desc: Lang.ANİM_STİCK, fromMe: true, deleteCommand: false}, (async (message, match) => {
-       const mid = message.jid
-        if (message.reply_message === false) return await message.sendMessage(Lang.STİCKER_NEEDREPLY);
-      var up =  await message.client.sendMessage(mid, Lang.ANİMATE, MessageType.text)
-        const savedFilename = await message.client.downloadAndSaveMediaMessage({
-            key: {
-                remoteJid: message.reply_message.jid,
-                id: message.reply_message.id
-            },
-            message: message.reply_message.data.quotedMessage
-        });
-       await uploadFile(savedFilename).then( async (data) => { 
-    const result = data.result.url
-    
-    const res =   await Axios.get(`https://hadi-api.herokuapp.com/api/converter/ezgif-with-url/webp-to-mp4?url=` + result, { responseType: 'arraybuffer'})
-  
-     await message.sendMessage(Buffer.from(res.data), MessageType.video , {  quoted: message.data, caption: Config.CAPTION})
-     await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-
-                                        })
-    }));
-}
-else if (Config.WORKTYPE == 'public') {
-
-    Aqua.addCommand({pattern: 'mp4audio$', fromMe: false, desc: Lang.MP4TOAUDİO_DESC, deleteCommand: false}, (async (message, match) => {
+    Aqua.addCommand({pattern: 'mp4audio$', fromMe: wk, desc: Lang.MP4TOAUDİO_DESC, deleteCommand: false}, (async (message, match) => {
         const mid = message.jid
         if (message.reply_message === false) return await message.client.sendMessage(mid, Lang.MP4TOAUDİO_NEEDREPLY, MessageType.text);
         var downloading = await message.client.sendMessage(mid,Lang.MP4TOAUDİO,MessageType.text);
@@ -126,7 +62,7 @@ else if (Config.WORKTYPE == 'public') {
         return await message.client.deleteMessage(mid, {id: downloading.key.id, remoteJid: message.jid, fromMe: true})
     }));
 
-    Aqua.addCommand({pattern: 'imagesticker$', fromMe: false, desc: Lang.STİCKER_DESC, deleteCommand: false}, (async (message, match) => {
+    Aqua.addCommand({pattern: 'imagesticker$', fromMe: wk, desc: Lang.STİCKER_DESC, deleteCommand: false}, (async (message, match) => {
         const mid = message.jid
         if (message.reply_message === false) return await message.client.sendMessage(mid, Lang.STİCKER_NEEDREPLY, MessageType.text);
         var downloading = await message.client.sendMessage(mid,Lang.STİCKER,MessageType.text);
@@ -137,16 +73,17 @@ else if (Config.WORKTYPE == 'public') {
             },
             message: message.reply_message.data.quotedMessage
         });
-
-        ffmpeg(location)
-            .fromFormat('webp_pipe')
-            .save('output.jpg')
-            .on('end', async () => {
-                await message.client.sendMessage(mid, fs.readFileSync('output.jpg'), MessageType.image, {mimetype: Mimetype.jpg, quoted: message.data, caption: Config.CAPTION });
-            });
-        return await message.client.deleteMessage(mid, {id: downloading.key.id, remoteJid: message.jid, fromMe: true})
+    await uploadFile(savedFilename).then( async (data) => { 
+    const result = data.result.url
+    
+    const res =   await webp2img(result)
+    const res2 = await axios.get( res, { responseType: 'arraybuffer'})
+  
+        await message.sendMessage(Buffer.from(res2.data), MessageType.image , {  quoted: message.data, caption: Config.CAPTION})
+        return await message.client.deleteMessage(mid, {id: downloading.key.id, remoteJid: message.jid, fromMe: true}) 
+    })
     }));
-    Aqua.addCommand({pattern: 'vsticker$', desc: Lang.ANİM_STİCK, fromMe: false, deleteCommand: false}, (async (message, match) => {
+    Aqua.addCommand({pattern: 'vsticker$', desc: Lang.ANİM_STİCK, fromMe: wk, deleteCommand: false}, (async (message, match) => {
         const mid = message.jid
         if (message.reply_message === false) return await message.sendMessage(Lang.STİCKER_NEEDREPLY);
       var up =  await message.client.sendMessage(mid, Lang.ANİMATE, MessageType.text)
@@ -168,5 +105,5 @@ else if (Config.WORKTYPE == 'public') {
 
                                         })
     }));
-}
+
     

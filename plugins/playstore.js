@@ -7,6 +7,7 @@ const {MessageType, GroupSettingChange, Mimetype, MessageOptions} = require('@ad
 const axios = require('axios')
 const cheerio = require('cheerio')
 const play = require('playstore-scraper')
+const { webp2img } = require('../lib/ezgif');
 var DOWN =''
    if (Config.LANG == 'EN') DOWN  = '*📥Downloading your APK...*'
    if (Config.LANG == 'SI') DOWN = '*📥ඔබ සෙවූ apk ගොනුව බාගත කරමින් පවතී...*'
@@ -67,11 +68,12 @@ Aqua.addCommand({ pattern: 'findapk ?(.*)', fromMe: wk, desc:SDESC, deleteComman
   const rating = try1.rating
   const developer = try1.additional_info.developer
   const msg ='┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *APK DOWNLOADER*\n\n│🎁ɴᴀᴍᴇ :' + name + '\n\n│🕹️ᴠᴇʀsɪᴏɴ : ' + version + '\n\n│👨‍💻ᴅᴇᴠᴇʟᴏᴘᴇʀ : ' + developer + '\n\n│✨ʀᴀᴛɪɴɢ : ' + rating + '\n\n└───────────◉'
-  const img = await axios.get('https://hadi-api.herokuapp.com/api/converter/ezgif-with-url/webp-to-jpg?url=' + icon, { responseType: 'arraybuffer'});
+  const res =   await webp2img(icon)
+   const res2 = await axios.get( res, { responseType: 'arraybuffer'})
   const file = await axios.get(url, { responseType: 'arraybuffer'});
   var up = await message.client.sendMessage(message.jid,UP,MessageType.text, {quoted: message.data});
   await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) 	 
-  await message.sendMessage(Buffer.from(img.data), MessageType.image, { caption: msg, quoted: message.data } )
+  await message.sendMessage(Buffer.from(res2.data), MessageType.image, { caption: msg, quoted: message.data } )
   await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) 
   await message.sendMessage(Buffer.from(file.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
  	 

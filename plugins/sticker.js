@@ -8,6 +8,8 @@ const Config = require('../config');
 let wk = Config.WORKTYPE == 'public' ? false : true
 const Language = require('../language');
 const Lang = Language.getString('sticker');
+const axios = require('axios')
+const cheerio = require('cheerio')
 async function imgstic(path) {
 	
 		const bodyForm = new FormData();

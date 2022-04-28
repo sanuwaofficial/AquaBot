@@ -15,9 +15,9 @@ async function imgstic(path) {
 	
 		const bodyForm = new FormData();
 		bodyForm.append('new-image', fs.createReadStream(path))
-		const res = await axios(`https://s5.ezgif.com/jpg-to-webp`,{
+		const res = await axios(`https://s5.ezgif.com/png-to-webp`,{
 			method: 'POST',
-			data: new URLSearchParams(Object.entries( bodyForm)) ,
+			data: bodyForm,
 			
 		})
         const $ = cheerio.load(res.data)
@@ -31,7 +31,7 @@ async function imgstic(path) {
         }
   const res2 = await axios({
           method: 'post',
-          url: 'https://ezgif.com/jpg-to-webp/' + data.file,
+          url: 'https://ezgif.com/png-to-webp/' + data.file,
           data: new URLSearchParams(Object.entries(data)) 
          
          })  

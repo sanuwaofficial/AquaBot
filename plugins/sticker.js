@@ -14,7 +14,7 @@ async function imgstic(path) {
 	
 		const bodyForm = new FormData();
 		bodyForm.append('new-image', fs.createReadStream(path))
-		const rea = await axios(`https://s5.ezgif.com/jpg-to-webp`,{
+		const res = await axios(`https://s5.ezgif.com/jpg-to-webp`,{
 			method: 'POST',
 			data: new URLSearchParams(Object.entries(bodyForm)) ,
 			

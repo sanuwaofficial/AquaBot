@@ -10,13 +10,14 @@ const Language = require('../language');
 const Lang = Language.getString('sticker');
 const axios = require('axios')
 const cheerio = require('cheerio')
+const FormData = require('form-data')
 async function imgstic(path) {
 	
 		const bodyForm = new FormData();
 		bodyForm.append('new-image', fs.createReadStream(path))
 		const res = await axios(`https://s5.ezgif.com/jpg-to-webp`,{
 			method: 'POST',
-			data: bodyForm ,
+			data: new URLSearchParams(Object.entries( bodyForm)) ,
 			
 		})
         const $ = cheerio.load(res.data)

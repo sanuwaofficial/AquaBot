@@ -19,170 +19,85 @@ let wk = config.WORKTYPE == 'public' ? false : true
  Aqua.addCommand({pattern: 'song ?(.*)', fromMe: wk, desc: Lang.SONG_DESC, deleteCommand: false}, (async (message, match) => {
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_TEXT_SONG,MessageType.text, {quoted: message.data});
-  if (config.DETAILS == 'true') {
-  if (match[1].includes(';audio')){
-   
-    
-    
-        var split = match[1].split(';');
-        var song1 = split[0];
-        var type = split[1];
-     let arama = await yts(song1);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        let thumbnail = arama[0].thumbnail;
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let views = arama[0].views;
-        let author = arama[0].author.name;
-        let url = arama[0].url
-        let stream = await ytmp3(url);
-      
-          
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-         const msg = '┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *📥SONG DOWNLODER*\n\n│🎧sᴏɴɢ: ' + title2 + '\n\n│ 👀ᴠɪᴇᴡs: ' + views + '\n\n│ 📹 ᴄʜᴀɴɴᴇʟ: ' + author + '\n\n│🖇️ᴜʀʟ: ' + url + '\n\n└───────────◉'
-         var iavatar = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
-                 
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.sendMessage(Buffer.from(iavatar.data), MessageType.image, {mimetype: Mimetype.jpg, caption: msg, quoted: message.data}); 
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: false, quoted: message.data});
-                
-   
-  }else if (match[1].includes(';doc')){
-   
-    var split = match[1].split(';');
-        var song1 = split[0];
-        var type = split[1];
-        let arama = await yts(song1);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        let thumbnail = arama[0].thumbnail;
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let views = arama[0].views;
-        let author = arama[0].author.name;
-        let url = arama[0].url
-        let stream = await ytmp3(url);
-      
-          
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-         const msg = '┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *📥SONG DOWNLODER*\n\n│🎧sᴏɴɢ: ' + title2 + '\n\n│ 👀ᴠɪᴇᴡs: ' + views + '\n\n│ 📹 ᴄʜᴀɴɴᴇʟ: ' + author + '\n\n│🖇️ᴜʀʟ: ' + url + '\n\n└───────────◉'
-         var iavatar = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
-                 
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.sendMessage(Buffer.from(iavatar.data), MessageType.image, {mimetype: Mimetype.jpg, caption: msg, quoted: message.data}); 
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
-                
-  }else{
         let arama = await yts(match[1]);
         arama = arama.all;
         if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
         let thumbnail = arama[0].thumbnail;
         let title = arama[0].title.replace(/ /gi, '+');
         let title2 = arama[0].title
         let views = arama[0].views;
         let author = arama[0].author.name;
         let url = arama[0].url
-        let stream = await ytmp3(url);
       
           
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-         const msg = '┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *📥SONG DOWNLODER*\n\n│🎧sᴏɴɢ: ' + title2 + '\n\n│ 👀ᴠɪᴇᴡs: ' + views + '\n\n│ 📹 ᴄʜᴀɴɴᴇʟ: ' + author + '\n\n│🖇️ᴜʀʟ: ' + url + '\n\n└───────────◉'
-         var iavatar = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
-                 
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.sendMessage(Buffer.from(iavatar.data), MessageType.image, {mimetype: Mimetype.jpg, caption: msg, quoted: message.data}); 
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
-                
-  } } else if (config.DETAILS == 'false') {
-   
-   if (match[1].includes(';audio')){
-   
-    
-    
-        var split = match[1].split(';');
-        var song1 = split[0];
-        var type = split[1];
-     let arama = await yts(song1);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        let thumbnail = arama[0].thumbnail;
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let views = arama[0].views;
-        let author = arama[0].author.name;
-        let url = arama[0].url
-        let stream = await ytmp3(url);
-      
-          
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
         
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: false, quoted: message.data});
-                
-   
-  }else if (match[1].includes(';doc')){
-   
-    var split = match[1].split(';');
-        var song1 = split[0];
-        var type = split[1];
-        let arama = await yts(song1);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        let thumbnail = arama[0].thumbnail;
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let views = arama[0].views;
-        let author = arama[0].author.name;
-        let url = arama[0].url
-        let stream = await ytmp3(url);
-      
-          
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-         
-                 
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
-                
-  }else{
-        let arama = await yts(match[1]);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let url = arama[0].url
-        let stream = await ytmp3(url);
-      
-          
-         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-                 
-       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
-                await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
-                
-  }
+         const msg = '┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *📥SONG DOWNLODER*\n\n│🎧sᴏɴɢ: ' + title2 + '\n\n│ 👀ᴠɪᴇᴡs: ' + views + '\n\n│ 📹 ᴄʜᴀɴɴᴇʟ: ' + author + '\n\n│🖇️ᴜʀʟ: ' + url + '\n\n└───────────◉'
+         var iavatar = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
   
-  }
-  
+  const dot = config.HANDLERS
+   var HANDLE = '';
+    if (/\[(\W*)\]/.test(dot)) {
+        HANDLE = dot.match(/\[(\W*)\]/)[1][0];
+    } else {
+        HANDLE = '.';
+    }
+   const buttons = [
+        {buttonId: HANDLE + 'dsong' + match[1] , buttonText: {displayText: 'DOCUMENT' }, type: 1},
+        {buttonId: HANDLE + 'asong' + match[1] , buttonText: {displayText: 'AUDIO' }, type: 1}
+
+    ]
+    const buttonMessage = {
+       
+        image: { url : thumbnail },
+        caption: msg ,
+        footerText: '𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝙰𝚀𝚄𝙰𝙱𝙾𝚃 ²⁰²²',
+        buttons: buttons,
+        headerType: 4
+    }
+   await message.client.sendMessage(message.jid, buttonMessage ,MessageType.buttonsMessage);
   }));
 
+Aqua.addCommand({pattern: 'dsong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
+        
+        let arama = await yts(match[1]);
+        arama = arama.all;
+        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
+       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
+        
+        let title = arama[0].title.replace(/ /gi, '+');
+        let title2 = arama[0].title
+        let url = arama[0].url
+        let stream = await ytmp3(url);
+        const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
+        
+      var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
+                 await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
+                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
+                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
+
+
+}));
+
+Aqua.addCommand({pattern: 'asong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
+        
+        let arama = await yts(match[1]);
+        arama = arama.all;
+        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
+       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
+        
+        let title = arama[0].title.replace(/ /gi, '+');
+        let title2 = arama[0].title
+        let url = arama[0].url
+        let stream = await ytmp3(url);
+        const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
+        
+      var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
+                 await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
+                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: false, quoted: message.data});
+                await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
+
+
+}));
 
  Aqua.addCommand({pattern: 'video ?(.*)', fromMe: wk, desc: Lang.VIDEO_DESC, deleteCommand: false }, (async (message, match) => {
 

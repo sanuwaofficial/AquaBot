@@ -56,7 +56,7 @@ let wk = config.WORKTYPE == 'public' ? false : true
         headerType: 4 ,
         imageMessage: media.message.imageMessage 
     }
-   await message.client.sendMessage(message.jid, buttonMessage ,MessageType.buttonsMessage);
+   await message.client.sendMessage(message.jid, buttonMessage ,MessageType.buttonsMessage, {quoted: message.data});
   }));
 
 Aqua.addCommand({pattern: 'dsong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 

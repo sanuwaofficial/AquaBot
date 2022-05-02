@@ -383,7 +383,9 @@ ${chalk.blue.italic('ℹ️ WhatsApp වෙත සම්බන්ධ වෙම�
                     var text_msg = msg.message.imageMessage.caption;
                 } else if (msg.message && msg.message.videoMessage && msg.message.videoMessage.caption) {
                     var text_msg = msg.message.videoMessage.caption;
-                } else if (msg.message) {
+                }else if (msg.message.buttonsResponseMessage){
+                    var text_msg = msg.message.buttonsResponseMessage.selectedButtonId;
+                }else if (msg.message) {
                     var text_msg = msg.message.extendedTextMessage === null ? msg.message.conversation : msg.message.extendedTextMessage.text;
                 } else {
                     var text_msg = undefined;

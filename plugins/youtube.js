@@ -32,9 +32,11 @@ let wk = config.WORKTYPE == 'public' ? false : true
           
         
          const msg = '┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *📥SONG DOWNLODER*\n\n│🎧sᴏɴɢ: ' + title2 + '\n\n│ 👀ᴠɪᴇᴡs: ' + views + '\n\n│ 📹 ᴄʜᴀɴɴᴇʟ: ' + author + '\n\n│🖇️ᴜʀʟ: ' + url + '\n\n└───────────◉'
-         var iavatar = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
-  
-  const dot = config.HANDLERS
+         var logo = await axios.get(thumbnail ,{responseType: 'arraybuffer'});
+ 
+    var PIC = Buffer.from(logo.data)
+    const dot = config.HANDLERS
+    const media = await message.client.prepareMessage(message.jid, PIC, MessageType.image )
    var HANDLE = '';
     if (/\[(\W*)\]/.test(dot)) {
         HANDLE = dot.match(/\[(\W*)\]/)[1][0];
@@ -48,11 +50,11 @@ let wk = config.WORKTYPE == 'public' ? false : true
     ]
     const buttonMessage = {
        
-        image: { url : thumbnail },
-        caption: msg ,
+        contentText: msg,
         footerText: '𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝙰𝚀𝚄𝙰𝙱𝙾𝚃 ²⁰²²',
         buttons: buttons,
-        headerType: 4
+        headerType: 4 ,
+        imageMessage: media.message.imageMessage 
     }
    await message.client.sendMessage(message.jid, buttonMessage ,MessageType.buttonsMessage);
   }));

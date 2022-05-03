@@ -14,7 +14,7 @@ const Lang = Language.getString('scrapers');
 var gis = require('g-i-s');
 const https = require('https');
 const ytmp3 = require('../lib/ytmp3');
-const {} = require('../lib/ytmp4');
+const { yt720 ,  yt480 ,  yt360 } = require('../lib/ytmp4');
 let wk = config.WORKTYPE == 'public' ? false : true
 
  Aqua.addCommand({pattern: 'song ?(.*)', fromMe: wk, desc: Lang.SONG_DESC, deleteCommand: false}, (async (message, match) => {
@@ -131,9 +131,9 @@ Aqua.addCommand({pattern: 'asong ?(.*)', fromMe: wk, dontAddCommandList: true, d
         HANDLE = '.';
     }
    const buttons = [
-        {buttonId: HANDLE + 'vid720' + s2vid , buttonText: {displayText: '720' }, type: 1},
-        {buttonId: HANDLE + 'vid480' + s2vid , buttonText: {displayText: '480' }, type: 1},
-        {buttonId: HANDLE + 'vid360' + s2vid , buttonText: {displayText: '360' }, type: 1}
+        {buttonId: HANDLE + 'vid720' + s2vid , buttonText: {displayText: '720P' }, type: 1},
+        {buttonId: HANDLE + 'vid480' + s2vid , buttonText: {displayText: '480P' }, type: 1},
+        {buttonId: HANDLE + 'vid360' + s2vid , buttonText: {displayText: '360P' }, type: 1}
 
     ]
    const buttonMessage = {

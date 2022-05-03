@@ -1,5 +1,5 @@
 
-FROM fusuf/whatsasena:latest
+FROM aquabotwa/sanuwa-official:beta
 
 RUN git clone https://github.com/sanuwaofficial/AquaBot /root/aquabot
 WORKDIR /root/aquabot/

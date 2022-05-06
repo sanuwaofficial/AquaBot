@@ -44,7 +44,7 @@ Aqua.addCommand({ pattern: 'sticemoji ?(.*)', fromMe: wk, desc:STICDESC, deleteC
 
  const stic =  await img2webp(res)
  const stic2 = await axios.get( stic, { responseType: 'arraybuffer'})
- await message.sendMessage(Buffer.from(stic.data), MessageType.sticker, { quoted: message.data}); 
+ await message.sendMessage(Buffer.from(stic2.data), MessageType.sticker, { quoted: message.data}); 
          }
 
     })})

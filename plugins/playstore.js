@@ -54,12 +54,14 @@ Aqua.addCommand({ pattern: 'findapk ?(.*)', fromMe: wk, desc:SDESC, deleteComman
 	  const id = match[1].replace('https://play.google.com/store/apps/details?id=' , '')
 	   const try1 = await play.getExtendedInfoById(id)
 	   const name = try1.title
-	  const try2 = await axios.get('https://apk-dl.herokuapp.com/api/apk?url=https://play.google.com/store/apps/details?id=' + id)
+	  const try2 = await axios.get('https://apk-dl.herokuapp.com/api/apk-dl?url=https://play.google.com/store/apps/details?id=' + id)
    
     
- if (try2.data.name) {
-  
+ if (try2.data.status) {
+  return await message.client.sendMessage(message.jid, N_FOUND ,MessageType.text, {quoted: message.data})
     
+
+ }else {
  if (Config.DETAILS == 'true') {
   const version = try1.version
   const icon = try1.icon
@@ -82,7 +84,5 @@ Aqua.addCommand({ pattern: 'findapk ?(.*)', fromMe: wk, desc:SDESC, deleteComman
   await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) 	 
   await message.sendMessage(Buffer.from(file.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
  
- }
- }else {
- return await message.client.sendMessage(message.jid, N_FOUND ,MessageType.text, {quoted: message.data})
+ }	 
  } })

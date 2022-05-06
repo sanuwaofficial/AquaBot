@@ -54,7 +54,7 @@ Aqua.addCommand({ pattern: 'findapk ?(.*)', fromMe: wk, desc:SDESC, deleteComman
 	  const id = match[1].replace('https://play.google.com/store/apps/details?id=' , '')
 	   const try1 = await play.getExtendedInfoById(id)
 	   const name = try1.title
-	  const try2 = await axios.get('https://apk-dl.herokuapp.com/api/apk-dl?url=https://play.google.com/store/apps/details?id=' + id)
+	  const try2 = await axios.get('https://apk-dl.herokuapp.com/api/apk-dl?url=https://play.google.com/store/apps/details?id=' + id , { responseType: 'arraybuffer'})
    
     
  if (try2.data.status) {
@@ -70,19 +70,18 @@ Aqua.addCommand({ pattern: 'findapk ?(.*)', fromMe: wk, desc:SDESC, deleteComman
   const msg ='┌───[🐋𝙰𝚀𝚄𝙰𝙱𝙾𝚃🐋]\n\n  *APK DOWNLOADER*\n\n│🎁ɴᴀᴍᴇ :' + name + '\n\n│🕹️ᴠᴇʀsɪᴏɴ : ' + version + '\n\n│👨‍💻ᴅᴇᴠᴇʟᴏᴘᴇʀ : ' + developer + '\n\n│✨ʀᴀᴛɪɴɢ : ' + rating + '\n\n└───────────◉'
   const res =   await webp2img(icon)
    const res2 = await axios.get( res, { responseType: 'arraybuffer'})
-  const file = await axios.get(try2.data.url, { responseType: 'arraybuffer'});
   var up = await message.client.sendMessage(message.jid,UP,MessageType.text, {quoted: message.data});
   await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) 	 
   await message.sendMessage(Buffer.from(res2.data), MessageType.image, { caption: msg, quoted: message.data } )
   await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) 
-  await message.sendMessage(Buffer.from(file.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
+  await message.sendMessage(Buffer.from(try2.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
  	 
  }else{
   var up = await message.client.sendMessage(message.jid,UP,MessageType.text, {quoted: message.data});
   await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) 	 
-  const file = await axios.get(try2.data.url, { responseType: 'arraybuffer'});
+
   await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) 	 
-  await message.sendMessage(Buffer.from(file.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
+  await message.sendMessage(Buffer.from(try2.data), MessageType.document, { filename: name + '.apk', mimetype: 'application/vnd.android.package-archive', quoted: message.data });	 
  
  }	 
  } })

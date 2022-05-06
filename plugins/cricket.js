@@ -103,4 +103,4 @@ Aqua.addCommand({ pattern: 'cric ?(.*)', fromMe: wk, desc:GDESC, deleteCommand: 
         })
         
            
-      })
+      }) 

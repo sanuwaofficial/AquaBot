@@ -1,6 +1,6 @@
 const Aqua = require('../events');
 const {MessageType,Mimetype} = require('@adiwajshing/baileys');
-const config = require('../config');
+const config = require('../config'); 
 const axios = require('axios');
 
 const fs = require('fs');

@@ -62,7 +62,7 @@ let wk = config.WORKTYPE == 'public' ? false : true
 
 Aqua.addCommand({pattern: 'dsong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
         if (!match[1].includes('youtu')) return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text, {quoted: message.data});
-      
+      var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
         let stream = await ytmp3(match[1]);
         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
         const title = stream.title
@@ -76,7 +76,7 @@ Aqua.addCommand({pattern: 'dsong ?(.*)', fromMe: wk, dontAddCommandList: true, d
 
 Aqua.addCommand({pattern: 'asong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
        if (!match[1].includes('youtu')) return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text, {quoted: message.data}); 
-      
+      var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
          let stream = await ytmp3(match[1]);
         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
          

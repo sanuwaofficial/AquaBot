@@ -45,8 +45,8 @@ let wk = config.WORKTYPE == 'public' ? false : true
         HANDLE = '.';
     }
    const buttons = [
-        {buttonId: HANDLE + 'dsong' + match[1] , buttonText: {displayText: 'DOCUMENT' }, type: 1},
-        {buttonId: HANDLE + 'asong' + match[1] , buttonText: {displayText: 'AUDIO' }, type: 1}
+        {buttonId: HANDLE + 'dsong' + url , buttonText: {displayText: 'DOCUMENT' }, type: 1},
+        {buttonId: HANDLE + 'asong' + url , buttonText: {displayText: 'AUDIO' }, type: 1}
 
     ]
     const buttonMessage = {
@@ -61,39 +61,25 @@ let wk = config.WORKTYPE == 'public' ? false : true
   }));
 
 Aqua.addCommand({pattern: 'dsong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
-        
-        let arama = await yts(match[1]);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let url = arama[0].url
-        let stream = await ytmp3(url);
+        if (!match[1].includes('youtu')) return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text, {quoted: message.data});
+      
+        let stream = await ytmp3(match[1]);
         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-        
+        const title = stream.title
       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
                  await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
-                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title2 + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
+                await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.document, {filename: title + '.mp3', mimetype: 'audio/mpeg', ptt: false, quoted: message.data});
                 await message.client.deleteMessage(message.jid, {id: up.key.id, remoteJid: message.jid, fromMe: true}) ;
 
 
 }));
 
 Aqua.addCommand({pattern: 'asong ?(.*)', fromMe: wk, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => { 
-        
-        let arama = await yts(match[1]);
-        arama = arama.all;
-        if(arama.length < 1) return await message.client.sendMessage(message.jid,Lang.NO_RESULT,MessageType.text, {quoted: message.data});
-       var load = await message.client.sendMessage(message.jid,config.SONG_DOWN,MessageType.text, {quoted: message.data});
-        
-        let title = arama[0].title.replace(/ /gi, '+');
-        let title2 = arama[0].title
-        let url = arama[0].url
-        let stream = await ytmp3(url);
+       if (!match[1].includes('youtu')) return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text, {quoted: message.data}); 
+      
+         let stream = await ytmp3(match[1]);
         const song = await axios.get(stream.mp3 ,{responseType: 'arraybuffer'});
-        
+         
       var up = await message.client.sendMessage(message.jid,config.SONG_UP,MessageType.text, {quoted: message.data});
                  await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true}) ; 
                 await message.client.sendMessage(message.jid,Buffer.from(song.data), MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: false, quoted: message.data});

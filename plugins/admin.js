@@ -22,7 +22,7 @@ async function checkImAdmin(message, user = message.client.user.jid) {
     return sonuc.includes(true);
 }
 
-Aqua.addCommand({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.BAN_DESC, deleteCommand: false}, (async (message, match) => {
+Aqua.addCommand({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.BAN_DESC, deleteCommand: false}, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -60,7 +60,7 @@ Aqua.addCommand({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: true, desc: Lang
     }
 }));
 
-Aqua.addCommand({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: true, desc: Lang.ADD_DESC, deleteCommand: false}, (async (message, match) => {
+Aqua.addCommand({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: false, desc: Lang.ADD_DESC, deleteCommand: false}, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -94,7 +94,7 @@ Aqua.addCommand({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: true, desc:
     }
 }));
 
-Aqua.addCommand({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.PROMOTE_DESC}, (async (message, match) => {
+Aqua.addCommand({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.PROMOTE_DESC}, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -152,7 +152,7 @@ Aqua.addCommand({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: true, desc: 
     }
 }));
 
-Aqua.addCommand({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.DEMOTE_DESC, deleteCommand: false }, (async (message, match) => {
+Aqua.addCommand({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.DEMOTE_DESC, deleteCommand: false }, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN);
 
@@ -210,7 +210,7 @@ Aqua.addCommand({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: true, desc: L
     }
 }));
 
-Aqua.addCommand({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.MUTE_DESC , deleteCommand: false }, (async (message, match) => {
+Aqua.addCommand({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.MUTE_DESC , deleteCommand: false }, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -1566,7 +1566,7 @@ Aqua.addCommand({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: true, desc: Lan
     }
 }));
 
-Aqua.addCommand({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.UNMUTE_DESC, deleteCommand: false}, (async (message, match) => {
+Aqua.addCommand({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.UNMUTE_DESC, deleteCommand: false}, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -1580,7 +1580,7 @@ Aqua.addCommand({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: true, desc: L
     }
 }));
 
-Aqua.addCommand({pattern: 'invite ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.INVITE_DESC, deleteCommand: false}, (async (message, match) => {
+Aqua.addCommand({pattern: 'invite ?(.*)', fromMe: true, onlyGroup: false, desc: Lang.INVITE_DESC, deleteCommand: false}, (async (message, match) => {
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN, MessageType.text);
     var invite = await message.client.groupInviteCode(message.jid);

@@ -349,28 +349,28 @@ ${chalk.blue.italic('ℹ️ WhatsApp වෙත සම්බන්ධ වෙම�
             if(msg.key.remoteJid.includes('-') ? nsup.includes(msg.key.remoteJid.split('@')[0]) : nsup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
          if (config.AMDI_1 == '94757405652-1533638214') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_1.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
        
          if (config.AMDI_3 == '94757405652-1631633729') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_3.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
          if (config.AMDI_4 == '94757405652-1631905677') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_4.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
          if (config.AMDI_5 == '94757405652-1636094186') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_5.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
          if (config.AMDI_6 == '972542559113-1376904403') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_6.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
          if (config.AMDI_7 == '94757405652-1636286090') {     
-            var sup = config.SUPPORT.split(',');                            
+            var sup = config.AMDI_7.split(',');                            
             if(msg.key.remoteJid.includes('-') ? sup.includes(msg.key.remoteJid.split('@')[0]) : sup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
         

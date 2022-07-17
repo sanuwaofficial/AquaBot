@@ -8,7 +8,7 @@
 
 ---------------------------------   
 
- ###  Developer :- Sanuwa-official 
+ ###  Developer :- mukki 
 
 ## Thanks To
 - [@adiwajshing](https://github.com/adiwajshing/) for coded [Baileys](https://github.com/adiwajshing/Baileys) 
